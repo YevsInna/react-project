@@ -4,7 +4,7 @@ export default function Posts({items, appFn}) {
 
     return (
         <div>{
-            items.map((value)=> <Post post = {value} fnFather = {appFn}/>)
+            items.map((value) => <Post post={value} fnFather={appFn}/>)
         };
 
         </div>
