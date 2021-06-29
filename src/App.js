@@ -1,18 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import {useEffect, useState} from 'react';
-import {getUser, getUsers, getUserPosts} from "./servises/API";
+import { useEffect, useState } from 'react';
+import { getUserPosts, getUsers } from "./servises/API";
 import Users from "./components/users/Users";
 import UserPost from "./components/userPost/UserPost";
 
 export default function App() {
+    const [userPosts, setUserPosts] = useState([]);
+    const [users, setUsers] = useState([]);
 
-    let [userPosts, setUserPosts] = useState([]);
-    let appFn = (id) => {
+    const appFn = (id) => {
         getUserPosts(id).then(value => setUserPosts(value.data));
     }
-
-    let [users, setUsers] = useState([]);
 
     useEffect(() => {
         getUsers().then(value => setUsers(value.data));

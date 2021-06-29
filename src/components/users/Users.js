@@ -1,7 +1,6 @@
 import User from "../user/User";
 
 export default function Users({items, appFn}) {
-
     return (
         <div>
             {
