@@ -14,7 +14,7 @@ export default function Users(props) {
 
     return (
         <div>
-            users.map(users => <User item={users}/>)
+            {users.map(users => <User key={users.id} item={users}/>)}
         </div>
     );
 }
