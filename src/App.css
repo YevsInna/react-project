@@ -59,3 +59,10 @@
   border-radius: 10px;
 
 }
+.details{
+  padding: 10px;
+  height: 80px;
+  width: 200px;
+  background: #d2b9e2;
+  border-radius: 10px;
+}

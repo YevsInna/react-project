@@ -10,7 +10,7 @@ function App() {
             <div>
                 <div className='userLink'><Link to={'/users'}>users page</Link></div>
                 <Switch>
-                    <Route exact path={'/users'} component={Users}/>
+                    <Route path={'/users'} component={Users}/>
                 </Switch>
             </div>
         </Router>
