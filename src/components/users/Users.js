@@ -14,7 +14,7 @@ export default function Users(props) {
             users.map(value => <User key={value.id} item={value}/>)
         }
          <Switch>
-             <Route path={'/users/:id'} component={UserPosts}></Route>
+             <Route path={'/users/:id/posts'} component={UserPosts}/>
          </Switch>
         </div>
     );

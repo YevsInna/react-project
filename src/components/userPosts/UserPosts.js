@@ -4,11 +4,11 @@ import {getUserPosts} from "../../servises/API";
 import Post from "../post/Post";
 
 export default function UserPosts(props) {
-    // let {id}= useParams;
+    let {id}= useParams();
     let [posts, setPosts] = useState([]);
     useEffect(() => {
-        getUserPosts().then(value => setPosts([...value.data]))
-    }, []);
+        getUserPosts(id).then(value => setPosts(value.data))
+    }, [id]);
     return (
         <div>
             {
