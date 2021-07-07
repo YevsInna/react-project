@@ -58,3 +58,11 @@
   justify-content: space-between;
   align-items: center;
 }
+.post{
+  background: #bec7b6;
+  width: 600px;
+  margin: 5px;
+  border-radius: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
