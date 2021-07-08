@@ -8,6 +8,8 @@ const NesteChild = () => {
 
     function getNumber(e){
         e.preventDefault()
+        dispatch({type:'INC_CUSTOM', payload: +e.target[0].value})    // робить запис в стор беручі дані з інпуту
+        e.target[0].value = ''                                              // робить інпут порожнім після кліку
     }
 
 
@@ -37,8 +39,7 @@ const NesteChild = () => {
 
             <form onSubmit={getNumber}>
                 <input type="number" name='number'/>
-                <button onClick={()=>{
-                    dispatch({type:'INC_CUSTOM'})}}>ok</button>
+                <button>ok</button>
             </form>
         </header>
     )

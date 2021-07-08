@@ -46,7 +46,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 counter: {
-                    // value: state.counter.value + input.value
+                    value: state.counter.value + action.payload
                 }
             }
         }
