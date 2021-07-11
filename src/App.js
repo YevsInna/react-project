@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
-import {useSelector} from "react-redux";
-import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {addTodos, pushNewTodo, setLoadingFalse, setLoadingTrue} from "./simple-json-api/redux/actionCreators";
 
 const CreateTodoForm = ({onSubmit}) => {
     const [title, setTitle] = useState('');
@@ -43,10 +43,43 @@ const CreateTodoForm = ({onSubmit}) => {
         </form>
     )
 }
+const TodosList = ({todos, isLoading})=>{
+    if (isLoading) return <h1>Loading......</h1>
+    return(
+        <div>
+            {todos.map(todo=>(
+                <div>
+                    <h4>{todo.title}</h4>
+                    <p>{todo.description}</p>
+                    <span>Created at: {new Date(todo.createdAt).toLocaleString()}</span>
+                </div>
+            ))}
+        </div>
+    )
+}
+
+
 
 function App() {
-    const store = useSelector(state => state)
-    console.log(store)
+    const {todos, isLoading} = useSelector(({todosReduser}) => todosReduser)
+    const dispatch = useDispatch ();
+
+
+    useEffect(()=>{
+        fetchTodos()
+    },[])
+    const fetchTodos = async ()=>{
+        try {
+            dispatch(setLoadingTrue())
+            const response = await fetch('http://localhost:8888/get-todos');
+            const data = await response.json();
+            dispatch(addTodos(data))
+        } catch (e){
+            console.log(e)
+        }finally {
+            dispatch(setLoadingFalse())
+        }
+        }
 
     const onTodoCreate = async (title, description) => {
         if (!title || !description) return;
@@ -59,11 +92,13 @@ function App() {
             }
         })
         const data = await response.json();
-        console.log(data)
+        dispatch(pushNewTodo(data))
     }
     return (
         <div>
             <CreateTodoForm onSubmit={onTodoCreate}/>
+
+            <TodosList todos={todos} isLoading={isLoading}/>
         </div>
     );
 }
