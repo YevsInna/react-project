@@ -48,16 +48,17 @@ const CreateTodoForm = ({onSubmit}) => {
     )
 }
 
-const TodoList = ({todos, isLoading}) => {
+const TodoList = () => {
+    const {todos, isLoading} = useSelector(({todosReducer}) => todosReducer)
     if (isLoading) return <h1>Loading....</h1>
-
+    console.log(todos)
     return (
         <div>
             {todos.map(todo => (
                     <div>
                         <h4>{todo.title}</h4>
                         <p>{todo.description}</p>
-                        <span>Created At:{new Date(todo.createdAt).toLocaleString()}</span>
+                        <span>Created At:{todo.createdAt}</span>
                         <hr/>
                     </div>
                 ))}
@@ -67,8 +68,6 @@ const TodoList = ({todos, isLoading}) => {
 
 
 function App() {
-
-    const {todos, isLoading} = useSelector(({todosReducer}) => todosReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -104,7 +103,7 @@ function App() {
     return (
         <div className='App'>
             <CreateTodoForm onSubmit={onTodoCreate}/>
-            <TodoList todos={todos} isLoading={isLoading}/>
+            <TodoList/>
         </div>
     );
 }
