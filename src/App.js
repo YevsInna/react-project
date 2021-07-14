@@ -108,12 +108,12 @@ function App() {
         console.log(data)
     }
 
-    const DeleteTodo = async (title, description) => {
+    const DeleteTodo = async (id) => {
            const response = await fetch('http://localhost:8888/delete-todo/:id', {
             method: 'DELETE',
         })
         const data = await response.json();
-        dispatch(deleteTodo())
+        dispatch(deleteTodo(id))
         console.log(data)
     }
 
@@ -121,6 +121,7 @@ function App() {
         <div className='App'>
             <CreateTodoForm onSubmit={onTodoCreate}/>
             <TodoList/>
+            <DeleteTodo onClick={DeleteTodo}/>
 
         </div>
     );

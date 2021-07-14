@@ -32,7 +32,7 @@ switch (action.type){
 
     case DELETE:{
         return {
-            todos: []
+            ...state, todos: [...state.todos, action.payload]
         }
     }
     default:
