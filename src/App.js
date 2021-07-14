@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {todosReducer} from "./reducers/todosReduser";
 import {ADD_TODOS, PUSH_NEW_TODO, SET_LOADING_FALSE, SET_LOADING_TRUE} from "./redux/actionTypes";
-import {addTodos, pushNewTodo, setLoadingFalse, setLoadingTrue} from "./redux/actionCreators";
+import {addTodos, deleteTodo, pushNewTodo, setLoadingFalse, setLoadingTrue} from "./redux/actionCreators";
 
 
 const CreateTodoForm = ({onSubmit}) => {
@@ -47,20 +47,26 @@ const CreateTodoForm = ({onSubmit}) => {
         </form>
     )
 }
+const DeleteTodo = ({onClick})=>{}
 
-const TodoList = ({todos, isLoading}) => {
+const TodoList = () => {
+    const {todos, isLoading} = useSelector(({todosReducer}) => todosReducer)
     if (isLoading) return <h1>Loading....</h1>
-
+    console.log(todos)
     return (
         <div>
             {todos.map(todo => (
-                    <div>
-                        <h4>{todo.title}</h4>
-                        <p>{todo.description}</p>
-                        <span>Created At:{new Date(todo.createdAt).toLocaleString()}</span>
-                        <hr/>
-                    </div>
-                ))}
+                <div>
+                    <h4>{todo.title}</h4>
+                    <p>{todo.description}</p>
+                    <span>Created At:{todo.createdAt}</span>
+                    <br/>
+                    <button onClick={DeleteTodo}>Delete Todo</button>
+                    <hr/>
+                </div>
+            ))}
+
+
         </div>
     )
 }
@@ -68,12 +74,12 @@ const TodoList = ({todos, isLoading}) => {
 
 function App() {
 
-    const {todos, isLoading} = useSelector(({todosReducer}) => todosReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
         fetchTodos()
     }, []);
+
     const fetchTodos = async () => {
         try {
             dispatch(setLoadingTrue())
@@ -101,10 +107,21 @@ function App() {
         dispatch(pushNewTodo(data))
         console.log(data)
     }
+
+    const DeleteTodo = async (title, description) => {
+           const response = await fetch('http://localhost:8888/delete-todo/:id', {
+            method: 'DELETE',
+        })
+        const data = await response.json();
+        dispatch(deleteTodo())
+        console.log(data)
+    }
+
     return (
         <div className='App'>
             <CreateTodoForm onSubmit={onTodoCreate}/>
-            <TodoList todos={todos} isLoading={isLoading}/>
+            <TodoList/>
+
         </div>
     );
 }

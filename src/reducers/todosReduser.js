@@ -1,4 +1,4 @@
-import {ADD_TODOS, PUSH_NEW_TODO, SET_LOADING_FALSE, SET_LOADING_TRUE} from "../redux/actionTypes";
+import {ADD_TODOS, DELETE, PUSH_NEW_TODO, SET_LOADING_FALSE, SET_LOADING_TRUE} from "../redux/actionTypes";
 
 const initialState = {
     todos:[],
@@ -27,6 +27,12 @@ switch (action.type){
     case PUSH_NEW_TODO:{
         return {
             ...state, todos: [...state.todos, action.payload]
+        }
+    }
+
+    case DELETE:{
+        return {
+            todos: []
         }
     }
     default:
