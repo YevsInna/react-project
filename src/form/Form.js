@@ -12,7 +12,7 @@ export default function Form ({users, setChosenUser}){
     return (
         <div>
             <form onSubmit={userChoose}>
-                <select onChange={userChoose} value={user}>
+                <select onChange={userChoose}>
                     <option>Choose person</option>
                     {users.map(value => <option key={value.name} value={value.id}>{value.name}</option>)
                     }

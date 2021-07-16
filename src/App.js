@@ -1,6 +1,6 @@
 import './App.css';
 import Form from "./form/Form";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import UserInfo from "./userInfo/UserInfo";
 
 function App() {
@@ -14,15 +14,19 @@ function App() {
         })
   }, [])
 
-
   return (
       <div>
-        <div><Form users={users} setChosenUser={setChosenUser} /></div>
+        <div><Form users={users} setChosenUser={setChosenUser}/></div>
+        <div className="flex">
           {
-              chosenUser && <UserInfo item={chosenUser}/>
+            chosenUser
+                ? <UserInfo item={chosenUser}/>
+                : users.map(value => <UserInfo item={value}/>)
           }
+        </div>
       </div>
   );
 
 }
+
 export default App;
