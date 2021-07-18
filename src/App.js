@@ -18,9 +18,13 @@ function App() {
   return (
       <div>
         <div><Form users={users} setChosenUser={setChosenUser} /></div>
-          {
-              chosenUser && <UserInfo item={chosenUser}/>
+          <div className='flex'>
+              {
+              chosenUser
+              ? <UserInfo item={chosenUser}/>
+                  : users.map(value => <UserInfo item={value}/>)
           }
+          </div>
       </div>
   );
 
